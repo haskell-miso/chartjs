@@ -49,7 +49,7 @@ app = (component (Model 0) updateModel viewModel)
   }
 #endif
 -----------------------------------------------------------------------------
-updateModel :: Action -> Effect ROOT Model Action
+updateModel :: Action -> Effect () () Model Action
 updateModel = \case
   InitBarChart domRef ->
     io_ $ void $ global # ("initBarChart" :: MisoString) $ [domRef]
@@ -60,7 +60,7 @@ updateModel = \case
   InitPolarChart domRef ->
     io_ $ void $ global # ("initPolarChart" :: MisoString) $ [domRef]
 -----------------------------------------------------------------------------
-githubStar :: View parent action
+githubStar :: View context props parent action
 githubStar = H.iframe_
     [ P.title_ "GitHub"
     , P.height_ "30"
@@ -72,7 +72,7 @@ githubStar = H.iframe_
     ]
     []
 -----------------------------------------------------------------------------
-viewModel :: Model -> View Model Action
+viewModel :: Model -> View () () Model Action
 viewModel _ = 
   div_
     [class_ "container"]
